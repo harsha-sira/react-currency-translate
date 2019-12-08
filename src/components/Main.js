@@ -2,6 +2,9 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Link, Paper } from "@material-ui/core";
 import { Button, Stepper, Step, StepLabel } from "@material-ui/core";
+import Details from "./Details";
+import Terms from "./Terms";
+import Payment from "./Payment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,9 +31,24 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1)
     },
     paperStyle: {
-      marginTop: "20px",
-      marginBottom: "30px",
-      width: "auto"
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+      padding: theme.spacing(2),
+      [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+        marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(6),
+        padding: theme.spacing(3)
+      }
+    },
+    layout: {
+      width: "auto",
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+        width: 600,
+        marginLeft: "auto",
+        marginRight: "auto"
+      }
     }
   })
 );
@@ -42,11 +60,11 @@ function getSteps() {
 function getStepContent(stepIndex: number) {
   switch (stepIndex) {
     case 0:
-      return "Select campaign settings...";
+      return <Details />;
     case 1:
-      return "What is an ad group anyways?";
+      return <Terms/>;
     case 2:
-      return "This is the bit I really care about!";
+      return <Payment/>;
     default:
       return "Unknown stepIndex";
   }
@@ -78,7 +96,7 @@ function Main() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
+  const handleDonate = () => {
     setActiveStep(0);
   };
 
@@ -93,60 +111,62 @@ function Main() {
           </Toolbar>
         </AppBar>
       </React.Fragment>
-      <Paper className={classes.paperStyle}>
-        <Typography variant="h4" component="h3" align="center">
-          Subscribe to alert
-        </Typography>
+      <main className={classes.layout}>
+        <Paper className={classes.paperStyle}>
+          <Typography variant="h4" component="h3" align="center">
+            Subscribe to alert
+          </Typography>
 
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map(label => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <div>
-          {activeStep === steps.length ? (
-            <div>
-              <Typography className={classes.instructions}>
-                You are sucessfully Subscribeed !
-              </Typography>
-              <Button
-                onClick={handleReset}
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-              >
-                Donate
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Typography className={classes.instructions}>
-                {getStepContent(activeStep)}
-              </Typography>
-              <div className={classes.buttons}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <div>
+            {activeStep === steps.length ? (
+              <div>
+                <Typography className={classes.instructions}>
+                  You are sucessfully Subscribeed !
+                </Typography>
                 <Button
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  className={classes.button}
-                >
-                  Back
-                </Button>
-                <Button
+                  onClick={handleDonate}
                   variant="contained"
-                  color="primary"
-                  onClick={handleNext}
+                  color="secondary"
                   className={classes.button}
                 >
-                  {activeStep === steps.length - 1 ? "Subscribe" : "Next"}
+                  Donate
                 </Button>
               </div>
-            </div>
-          )}
-        </div>
-        <br />
-      </Paper>
+            ) : (
+              <div>
+                <Typography className={classes.instructions}>
+                  {getStepContent(activeStep)}
+                </Typography>
+                <div className={classes.buttons}>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.button}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Subscribe" : "Next"}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+          <br />
+        </Paper>
+      </main>
 
       {/* adding copyright */}
       <Copyright />
