@@ -13,8 +13,7 @@ import {
 
 export class Detail extends Component {
   render() {
-
-    const {values, handleChange} = this.props;
+    const { values, handleChange } = this.props;
     return (
       <div>
         <React.Fragment>
@@ -23,10 +22,25 @@ export class Detail extends Component {
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <TextField required id="firstName" value={values.firstname} label="First Name" fullWidth onChange={handleChange('firstname')} />
+              <TextField
+                required
+                id="firstName"
+                value={values.firstname}
+                label="First Name"
+                fullWidth
+                onChange={handleChange("firstname")}
+              
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField required id="LastName" value={values.lastname} label="Last Name" fullWidth onChange={handleChange('lastname')}/>
+              <TextField
+                required
+                id="LastName"
+                value={values.lastname}
+                label="Last Name"
+                fullWidth
+                onChange={handleChange("lastname")}
+              />
             </Grid>
 
             <Grid item xs={12} sm={12}>
@@ -35,7 +49,7 @@ export class Detail extends Component {
                 labelId="Banks"
                 id="bank-combo"
                 value={values.bank}
-                onChange={handleChange('bank')}
+                onChange={handleChange("bank")}
                 fullWidth
               >
                 <MenuItem value="BOC">BOC</MenuItem>
@@ -47,7 +61,7 @@ export class Detail extends Component {
                 aria-label="Notification Type"
                 name="type"
                 value={values.type}
-                onChange={handleChange('type')}
+                onChange={handleChange("type")}
                 color="default"
                 row
               >
@@ -65,10 +79,24 @@ export class Detail extends Component {
               </RadioGroup>
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField id="email" label="E-mail" value={values.email} fullWidth defaultValue="test@email.com" onChange={handleChange('email')} required  />
+              <TextField
+                id="email"
+                label="E-mail"
+                value={values.email}
+                fullWidth
+                onChange={handleChange("email")}
+                required={values.type === "e-mail"}
+              />
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField id="phone" label="Phone number" value={values.phone} fullWidth onChange={handleChange('phone')}/>
+              <TextField
+                id="phone"
+                label="Phone number"
+                value={values.phone}
+                fullWidth
+                onChange={handleChange("phone")}
+                required={values.type === "sms"}
+              />
             </Grid>
           </Grid>
         </React.Fragment>

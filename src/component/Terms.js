@@ -9,7 +9,7 @@ import {
 export class Terms extends Component {
   render() {
     const { values, handleCheckboxChange } = this.props;
-
+console.log(values)
     return (
       <div>
         <React.Fragment>
@@ -18,9 +18,31 @@ export class Terms extends Component {
           </Typography>
           <Typography variant="h5" component="h1">
             <ul>
-              <li>1</li>
-              <li>1</li>
-              <li>1</li>
+              <li>
+                All rates are taken from respective bank's official websites{" "}
+              </li>
+              <li>
+                If those web sites are down for some reason, for that period you
+                will not be notified
+              </li>
+              { values.isfree ? (
+                <li>
+                  This is a free service and it can be terminated without prior
+                  notice
+                </li>
+              ) : (
+                <div>
+                  <li>You need to pay subscription once a month</li>
+                  <li>
+                    You will recieve notification untill your subscription is
+                    valid
+                  </li>
+                  <li>
+                    Just in case if service is no longer continued, it will
+                    available until your subscription period is over
+                  </li>
+                </div>
+              )}
             </ul>
           </Typography>
           <Grid container spacing={3}>
@@ -30,7 +52,7 @@ export class Terms extends Component {
                 control={
                   <Checkbox
                     checked={values.termsAgreed}
-                    onChange={handleCheckboxChange('termsAgreed')}
+                    onChange={handleCheckboxChange("termsAgreed")}
                     value={values.termsAgreed}
                     color="primary"
                     inputProps={{

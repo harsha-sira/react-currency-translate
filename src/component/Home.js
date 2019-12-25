@@ -5,6 +5,7 @@ import Copyright from "./Copyright";
 import "../css/Main.css";
 import Detail from "./Detail";
 import Terms from "./Terms";
+import Payment from "./Payment";
 
 export class Home extends Component {
   state = {
@@ -15,14 +16,25 @@ export class Home extends Component {
     type: "e-mail",
     email: "",
     phone: "",
-    termsAgreed: false
+    termsAgreed: false,
+    isfree: false,
+    isValid: true
   };
 
   handleNext = () => {
-    const { activeStep } = this.state;
-    this.setState({
-      activeStep: activeStep + 1
-    });
+    const { activeStep, type, email, isValid } = this.state;
+    if(isValid)
+    {
+      this.setState({
+        activeStep: activeStep + 1
+      });
+  
+      if (activeStep === 0) {
+        this.setState({
+          isfree: type === "e-mail" && email.includes("@enactor.co.uk")
+        });
+      }
+    }
   };
 
   handleBack = () => {
@@ -65,9 +77,11 @@ export class Home extends Component {
       case 0:
         return <Detail handleChange={handleChange} values={values} />;
       case 1:
-        return <Terms handleCheckboxChange={handleCheckboxChange} values={values} />;
-      // case 2:
-      //   return <Payment/>;
+        return (
+          <Terms handleCheckboxChange={handleCheckboxChange} values={values} />
+        );
+      case 2:
+        return <Payment values={values} />;
       default:
         return "Unknown stepIndex";
     }
@@ -82,7 +96,9 @@ export class Home extends Component {
       type,
       email,
       phone,
-      termsAgreed
+      termsAgreed,
+      isfree,
+      isValid
     } = this.state;
 
     const values = {
@@ -93,7 +109,9 @@ export class Home extends Component {
       type,
       email,
       phone,
-      termsAgreed
+      termsAgreed,
+      isfree,
+      isValid
     };
     const steps = this.getSteps();
 
@@ -127,6 +145,13 @@ export class Home extends Component {
                   <Typography className="instructions">
                     You are sucessfully Subscribeed !
                   </Typography>
+                  <br />
+                  <Typography variant="h4" component="h4" className="donate">
+                    <strong>
+                      Please support developers with cup of Coffee !
+                    </strong>
+                  </Typography>
+                  <br />
                   <Button
                     onClick={this.handleDonate}
                     variant="contained"
@@ -139,7 +164,12 @@ export class Home extends Component {
               ) : (
                 <div>
                   <Typography className="instructions">
-                    {this.getStepContent(activeStep, values, this.handleChange, this.handleCheckboxChange)}
+                    {this.getStepContent(
+                      activeStep,
+                      values,
+                      this.handleChange,
+                      this.handleCheckboxChange
+                    )}
                   </Typography>
                   <br />
                   <div className="buttons">
