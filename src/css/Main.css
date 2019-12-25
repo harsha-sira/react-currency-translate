@@ -1,0 +1,45 @@
+.toolbar {
+  justify-content: center;
+}
+
+.class1 {
+  color: red;
+}
+
+.root {
+  width: "100%";
+}
+
+.backButton {
+  margin-left: 8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  margin-top: 24px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.instructions {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.layout {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
+.paperStyle {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 16px;
+}
+
+
