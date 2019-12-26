@@ -10,8 +10,24 @@ import {
   MenuItem,
   InputLabel
 } from "@material-ui/core";
+import axios from "axios";
 
-export class Detail extends Component {
+class Detail extends Component {
+  state = {
+    banksList: null
+  };
+
+  componentDidMount() {
+    axios
+      .get(
+        `http://ec2-18-212-139-70.compute-1.amazonaws.com/api/v1/banks/listBanks`
+      )
+      .then(res => {
+        const banks = res.data;
+        this.setState({ banksList: banks.data });
+      });
+  }
+
   render() {
     const { values, handleChange } = this.props;
     return (
@@ -29,7 +45,10 @@ export class Detail extends Component {
                 label="First Name"
                 fullWidth
                 onChange={handleChange("firstname")}
-              
+                error={values.firstname === ""}
+                helperText={
+                  values.firstname.length === 0 ? "Enter FirstName" : null
+                }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -44,7 +63,9 @@ export class Detail extends Component {
             </Grid>
 
             <Grid item xs={12} sm={12}>
-              <InputLabel id="demo-simple-select-label">Bank</InputLabel>
+              <InputLabel required id="demo-simple-select-label">
+                Bank
+              </InputLabel>
               <Select
                 labelId="Banks"
                 id="bank-combo"
@@ -52,8 +73,13 @@ export class Detail extends Component {
                 onChange={handleChange("bank")}
                 fullWidth
               >
-                <MenuItem value="BOC">BOC</MenuItem>
-                <MenuItem value="SAMPATH">SAMPATH</MenuItem>
+                 
+                {/* {this.state.banksList.map( bank => 
+                  console.log("ba" + bank)
+                )} */}
+               
+                <MenuItem value="BOC">BOC-TEMP</MenuItem>
+                <MenuItem value="SAMPATH">SAMPATH-TEMP</MenuItem>
               </Select>
             </Grid>
             <Grid item xs={12} sm={6}>

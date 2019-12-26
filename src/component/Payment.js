@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
-import { red } from "@material-ui/core/colors";
 
 export class Payment extends Component {
   render() {

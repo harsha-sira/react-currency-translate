@@ -159,7 +159,7 @@ export class Home extends Component {
                     className="button"
                   >
                     Donate
-                  </Button>
+                    setStatesetState   </Button>
                 </div>
               ) : (
                 <div>
@@ -185,6 +185,7 @@ export class Home extends Component {
                       color="primary"
                       onClick={this.handleNext}
                       className="button"
+                      disabled={activeStep === steps.length -1 && !isfree}
                     >
                       {activeStep === steps.length - 1 ? "Subscribe" : "Next"}
                     </Button>
